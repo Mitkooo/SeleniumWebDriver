@@ -2,14 +2,11 @@ package Tests.HomePage;
 
 import PageObjects.HomePO;
 import PageObjects.LoginPO;
-import PageObjects.ShopCartPO;
 import Tests.Base.BaseTests;
 import org.junit.Assert;
 import org.junit.Before;
-import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.jupiter.api.DisplayName;
-import org.junit.runners.MethodSorters;
 import org.openqa.selenium.WebElement;
 
 import java.util.List;
@@ -19,13 +16,11 @@ import static Constants.LoginConstants.*;
 
 public class HomePageTests extends BaseTests {
     private HomePO homePO;
-    private ShopCartPO cartPO;
 
     @Before
     public void setUp() {
         initializeDriver(LOGIN_PAGE_URL);
         homePO = new HomePO(driver);
-        cartPO = new ShopCartPO(driver);
         LoginPO loginPO = new LoginPO(driver);
 
         loginPO.inputUsernameFieldText(STANDARD_USER);
@@ -33,7 +28,6 @@ public class HomePageTests extends BaseTests {
         loginPO.clickLoginButton();
         Assert.assertEquals("User is not logged in.", HOME_PAGE_URL, driver.getCurrentUrl());
     }
-
 
     @Test
     @DisplayName("Checks if user will be logged out when using the 'Logout' sidebar link.")

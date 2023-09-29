@@ -46,8 +46,21 @@ public class ShopCartTests extends BaseTests {
     }
 
     @Test
-    @DisplayName("Bim bim bam bam")
-    public void testAddingMultipleProductsToCart() {
-
+    @DisplayName("Test adding a product to cart and removing it")
+    public void testRemovingProductFromCart() {
+        // Assert "Add to cart button" is displayed
+        Assert.assertTrue("Add to cart button is not displayed.", homePO.isBikeLightAddToCartBtnDisplayed());
+        // Add product to cart
+        homePO.clickAddBikeLightToCart();
+        // Open cart
+        homePO.clickShoppingCartButton();
+        // Assert product name is correct
+        cartPO.isProductNameCorrect(BIKE_LIGHT);
+        // Remove product from cart
+        cartPO.clickRemoveButton();
+        // assert product is removed
+        Assert.assertTrue("Item is still in cart", cartPO.isProductRemoved());
+        // Click on Continue Shopping button
+        cartPO.ClickContinueShoppingButton();
     }
 }

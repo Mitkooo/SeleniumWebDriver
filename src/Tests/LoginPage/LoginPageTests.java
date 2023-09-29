@@ -40,6 +40,7 @@ public class LoginPageTests extends BaseTests {
         loginPO.clickLoginButton();
         loginPO.waitUntilLogInButtonIsInvisible();
         Assert.assertEquals("User is not logged in.", HOME_PAGE_URL, driver.getCurrentUrl());
+        Assert.assertTrue("Image is problem user image", loginPO.isProblemUserImageDisplayed());
     }
 
     @Test
@@ -157,5 +158,4 @@ public class LoginPageTests extends BaseTests {
         Assert.assertTrue("No error message is displayed.",loginPO.isLoginErrorMessageDisplayed());
         Assert.assertEquals("Invalid user error message is not as expected", INVALID_USER_ERROR_MESSAGE, loginPO.getLoginErrorMessage());
     }
-
 }

@@ -18,28 +18,14 @@ public class HomePO extends BasePage {
     private WebElement sideBar;
     @FindBy (xpath = "//*[@id='logout_sidebar_link']")
     private WebElement logout;
-    @FindBy (xpath = "//*[@id='inventory_sidebar_link']")
-    private WebElement allItems;
     @FindBy (xpath = "//*[@id='about_sidebar_link']")
     private WebElement about;
-    @FindBy (xpath = "//*[@id='reset_sidebar_link']")
-    private WebElement resetAppState;
     @FindBy (xpath = "//*[@class='product_sort_container']")
     private WebElement productSortingDropDown;
     @FindBy (xpath = "//*[@class='shopping_cart_link']")
     private WebElement shoppingCartButton;
-    @FindBy (xpath = "//*[@id='add-to-cart-sauce-labs-backpack']")
-    private WebElement backpackCartBtn;
     @FindBy (xpath = "//*[@id='add-to-cart-sauce-labs-bike-light']")
     private WebElement bikeLightCartBtn;
-    @FindBy (xpath = "//*[@id='add-to-cart-sauce-labs-bolt-t-shirt']")
-    private WebElement boltTShirtCartBtn;
-    @FindBy (xpath = "//*[@id='add-to-cart-sauce-labs-fleece-jacket']")
-    private WebElement fleeceJacketCartBtn;
-    @FindBy (xpath = "//*[@id='add-to-cart-sauce-labs-onesie']")
-    private WebElement onesieCartBtn;
-    @FindBy (xpath = "//*[@id='add-to-cart-test.allthethings()-t-shirt-(red)']")
-    private WebElement redTShirtCartBtn;
 
     public HomePO(WebDriver driver) {
         super(driver);
@@ -50,73 +36,23 @@ public class HomePO extends BasePage {
         return sideBar.isDisplayed();
     }
 
-    public boolean isLogOutOptionVisible() {
-        return logout.isDisplayed();
-    }
-
     public boolean isBikeLightAddToCartBtnDisplayed() {
         return bikeLightCartBtn.isDisplayed();
-    }
-
-    public boolean isBackPackAddBnDisplayed() {
-        return backpackCartBtn.isDisplayed();
-    }
-
-    public boolean isBolTTShirtAddToCartBtnDisplayed() {
-        return boltTShirtCartBtn.isDisplayed();
-    }
-
-    public boolean isFleeceJacketAddToCartBthDisplayed() {
-        return fleeceJacketCartBtn.isDisplayed();
-    }
-
-    public boolean isOnesieAddToCartBtnDisplayed() {
-        return onesieCartBtn.isDisplayed();
-    }
-
-    public boolean isRedTShirtAddToCartBtnDisplayed() {
-        return  redTShirtCartBtn.isDisplayed();
-    }
-
-    public void clickAddBackpackToCart() {
-        backpackCartBtn.click();
     }
 
     public void clickAddBikeLightToCart() {
         bikeLightCartBtn.click();
     }
 
-    public void clickAddBoltTShirtToCart() {
-        boltTShirtCartBtn.click();
-    }
-
-    public void clickAddFleeceJacketToCart() {
-        fleeceJacketCartBtn.click();
-    }
-
-    public void clickAddOnesieToCart() {
-        onesieCartBtn.click();
-    }
-
-    public void clickAddRedTShirtToCart() {
-        redTShirtCartBtn.click();
-    }
-
     public boolean isShoppingCartButtonDisplayed() {
         return shoppingCartButton.isDisplayed();
-    }
-
-    public boolean isShoppingCartButtonClickable() {
-        return shoppingCartButton.isEnabled();
     }
 
     public void clickShoppingCartButton() {
         shoppingCartButton.click();
     }
 
-    public void clickSidebarElement() {
-        sideBar.click();
-    }
+    public void clickSidebarElement() { sideBar.click(); }
 
     public void selectLogOutOptionFromSideBar() {
         wait.until(ExpectedConditions.visibilityOf(logout));

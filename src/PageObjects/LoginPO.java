@@ -15,6 +15,8 @@ public class LoginPO extends BasePage {
     private WebElement loginButton;
     @FindBy (xpath = "//*[@data-test='error']")
     private WebElement loginErrorMessage;
+    @FindBy (xpath = "//*[@alt='Sauce Labs Bike Light']")
+    private WebElement problemUserImage;
 
     public LoginPO(WebDriver driver) {
         super(driver);
@@ -50,4 +52,6 @@ public class LoginPO extends BasePage {
     public void waitUntilLogInButtonIsInvisible() { wait.until(ExpectedConditions.invisibilityOf(loginButton)); }
 
     public String getLoginErrorMessage() { return loginErrorMessage.getText(); }
+
+    public boolean isProblemUserImageDisplayed() { return problemUserImage.isDisplayed(); }
 }
