@@ -12,7 +12,7 @@ import org.junit.jupiter.api.DisplayName;
 import static Constants.HomeConstants.*;
 import static Constants.LoginConstants.*;
 
-public class ShopCartTests extends BaseTests {
+public class ShopCartPageTests extends BaseTests {
     private HomePO homePO;
     private ShopCartPO cartPO;
 
@@ -44,6 +44,8 @@ public class ShopCartTests extends BaseTests {
         Assert.assertTrue("Number of added products is not correct.", cartPO.areAddedProductsNumberCorrect());
         Assert.assertTrue("Names doesn't match", cartPO.isProductNameCorrect(BIKE_LIGHT));
     }
+
+
 
     @Test
     @DisplayName("Test adding a product to cart and removing it")
