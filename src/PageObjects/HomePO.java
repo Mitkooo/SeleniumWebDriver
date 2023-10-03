@@ -23,9 +23,15 @@ public class HomePO extends BasePage {
     @FindBy (xpath = "//*[@class='product_sort_container']")
     private WebElement productSortingDropDown;
     @FindBy (xpath = "//*[@class='shopping_cart_link']")
-    private WebElement shoppingCartButton;
+    private WebElement shoppingCartBtn;
     @FindBy (xpath = "//*[@id='add-to-cart-sauce-labs-bike-light']")
     private WebElement bikeLightCartBtn;
+    @FindBy (xpath = "//*[@id='add-to-cart-sauce-labs-backpack']")
+    private WebElement backPackCartBtn;
+    @FindBy (xpath = "//*[@id='add-to-cart-sauce-labs-fleece-jacket']")
+    private WebElement fleeceJacketCartBtn;
+    @FindBy (xpath = "//*[@class='btn btn_action btn_medium checkout_button']")
+    private WebElement checkoutBtn;
 
     public HomePO(WebDriver driver) {
         super(driver);
@@ -36,6 +42,12 @@ public class HomePO extends BasePage {
         return sideBar.isDisplayed();
     }
 
+    public boolean isCheckoutButtonDisplayed() { return checkoutBtn.isDisplayed(); }
+    public void clickCheckoutButton() { checkoutBtn.click(); }
+    public boolean isBackpackAddToCartButtonDisplayed() { return backPackCartBtn.isDisplayed(); }
+    public void clickBackpackAddToCartBtn() { backPackCartBtn.click(); }
+    public boolean isFleeceJacketAddToCartButtonDisplayed() { return fleeceJacketCartBtn.isDisplayed(); }
+    public void clickFleeceJacketAddToCartBtn() { fleeceJacketCartBtn.click(); }
     public boolean isBikeLightAddToCartBtnDisplayed() {
         return bikeLightCartBtn.isDisplayed();
     }
@@ -45,11 +57,11 @@ public class HomePO extends BasePage {
     }
 
     public boolean isShoppingCartButtonDisplayed() {
-        return shoppingCartButton.isDisplayed();
+        return shoppingCartBtn.isDisplayed();
     }
 
     public void clickShoppingCartButton() {
-        shoppingCartButton.click();
+        shoppingCartBtn.click();
     }
 
     public void clickSidebarElement() { sideBar.click(); }

@@ -39,7 +39,7 @@ public class ShopCartPageTests extends BaseTests {
         // Assert shopping cart button in the upper right corner is display
         Assert.assertTrue("Shopping cart button is not displayed.", homePO.isShoppingCartButtonDisplayed());
         // Click on shopping cart button
-        homePO.clickAddBikeLightToCart();
+        homePO.clickShoppingCartButton();
         // Assert correct product is successfully added to the cart by comparing names
         Assert.assertTrue("Number of added products is not correct.", cartPO.areAddedProductsNumberCorrect());
         Assert.assertTrue("Names doesn't match", cartPO.isProductNameCorrect(BIKE_LIGHT));
