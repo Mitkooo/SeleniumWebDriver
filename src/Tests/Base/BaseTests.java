@@ -1,8 +1,8 @@
 package Tests.Base;
 
-import org.junit.After;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.annotations.AfterClass;
 
 public class BaseTests {
     protected WebDriver driver;
@@ -14,7 +14,7 @@ public class BaseTests {
         driver.manage().window().maximize();
     }
 
-    @After
+    @AfterClass
     public void tearDown() {
             driver.quit();
     }
