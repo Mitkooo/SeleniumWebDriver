@@ -29,6 +29,10 @@ public class HomePO extends BasePage {
     private WebElement shoppingCartBtn;
     @FindBy (xpath = "//*[@id='add-to-cart-sauce-labs-bike-light']")
     private WebElement bikeLightCartBtn;
+    @FindBy (xpath = "//*[@id='add-to-cart-sauce-labs-backpack']")
+    private WebElement backpackCartBtn;
+    @FindBy (xpath = "//*[@id='add-to-cart-sauce-labs-bolt-t-shirt']")
+    private WebElement boltTShirt;
     @FindBy (xpath = "//*[@href='https://twitter.com/saucelabs']")
     private WebElement twitterLink;
     @FindBy (xpath = "//*[@href='https://www.facebook.com/saucelabs']")
@@ -43,12 +47,6 @@ public class HomePO extends BasePage {
         PageFactory.initElements(driver, this);
     }
 
-    public boolean getURL(String url) {
-        return wait.until(ExpectedConditions.urlToBe(url));
-    }
-    public void focusOnTab(String url) {
-        driver.switchTo().window(url);
-    }
     public boolean isCopyrightStatementDisplayed() {
         return copyrightStatement.isDisplayed();
     }
@@ -76,6 +74,10 @@ public class HomePO extends BasePage {
     public boolean isSidebarVisible() {
         return sideBar.isDisplayed();
     }
+    public boolean isBoltTShirtAddToCartBtnDisplayed() { return boltTShirt.isDisplayed(); }
+    public void clickBoltTShirtAddToCartBtn() { boltTShirt.click(); }
+    public boolean isBackpackAddToCartBtnDisplayed() { return backpackCartBtn.isDisplayed(); }
+    public void clickBackpackAddToCartBtn() { backpackCartBtn.click(); }
     public boolean isBikeLightAddToCartBtnDisplayed() {
         return bikeLightCartBtn.isDisplayed();
     }

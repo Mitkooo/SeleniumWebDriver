@@ -45,6 +45,20 @@ public class ShopCartPageTests extends BaseTests {
         Assert.assertTrue(cartPO.isProductNameCorrect(BIKE_LIGHT), "Names doesn't match");
     }
 
+    @Test(priority = 2)
+    @Description("Verify multiple products will be displayed when added to shopping cart.")
+    public void testAddingMultipleProducts() {
+        Assert.assertTrue(homePO.isBikeLightAddToCartBtnDisplayed(), "Bike light Add to cart button is not displayed.");
+        Assert.assertTrue(homePO.isBackpackAddToCartBtnDisplayed(), "Backpack Add to cart button is not displayed.");
+        Assert.assertTrue(homePO.isBoltTShirtAddToCartBtnDisplayed(), "Bolt T-Shirt Add to cart button is not displayed.");
+        homePO.clickAddBikeLightToCart();
+        homePO.clickBoltTShirtAddToCartBtn();
+        homePO.clickBackpackAddToCartBtn();
+        Assert.assertTrue(homePO.isShoppingCartButtonDisplayed(), "Shopping cart button is not displayed.");
+        homePO.clickShoppingCartButton();
+        Assert.assertTrue(cartPO.areAddedProductsNumberCorrect(), "Number of added products is not correct.");
+    }
+
     @Test(priority = 1)
     @Description("Test adding a product to cart and removing it")
     public void testRemovingProductFromCart() {

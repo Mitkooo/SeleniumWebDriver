@@ -32,10 +32,9 @@ public class ShopCartPO extends BasePage {
         return product.getText().contains(productName);
     }
 
-    // безполезно...
     public boolean areAddedProductsNumberCorrect() {
         // Check if the list of items' size equals to the number from the shop cart badge
-        List<WebElement> products = driver.findElements(By.className("cart_list"));
+        List<WebElement> products = driver.findElements(By.className("cart_item"));
         String badgeString = shoppingCartBadge.getText();
         int badgeNumber = Integer.parseInt(badgeString);
         return products.size() == badgeNumber;
