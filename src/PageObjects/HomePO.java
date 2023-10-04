@@ -8,10 +8,13 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 
+import javax.xml.xpath.XPath;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import static Constants.HomeConstants.*;
 
 public class HomePO extends BasePage {
     @FindBy (xpath = "//*[@id='react-burger-menu-btn']")
@@ -26,44 +29,65 @@ public class HomePO extends BasePage {
     private WebElement shoppingCartBtn;
     @FindBy (xpath = "//*[@id='add-to-cart-sauce-labs-bike-light']")
     private WebElement bikeLightCartBtn;
-    @FindBy (xpath = "//*[@id='add-to-cart-sauce-labs-backpack']")
-    private WebElement backPackCartBtn;
-    @FindBy (xpath = "//*[@id='add-to-cart-sauce-labs-fleece-jacket']")
-    private WebElement fleeceJacketCartBtn;
-    @FindBy (xpath = "//*[@class='btn btn_action btn_medium checkout_button']")
-    private WebElement checkoutBtn;
+    @FindBy (xpath = "//*[@href='https://twitter.com/saucelabs']")
+    private WebElement twitterLink;
+    @FindBy (xpath = "//*[@href='https://www.facebook.com/saucelabs']")
+    private WebElement facebookLink;
+    @FindBy (xpath = "//*[@href='https://www.linkedin.com/company/sauce-labs/']")
+    private WebElement linkedInLink;
+    @FindBy (xpath = "//*[@class='footer_copy']")
+    private WebElement copyrightStatement;
 
     public HomePO(WebDriver driver) {
         super(driver);
         PageFactory.initElements(driver, this);
     }
 
+    public boolean getURL(String url) {
+        return wait.until(ExpectedConditions.urlToBe(url));
+    }
+    public void focusOnTab(String url) {
+        driver.switchTo().window(url);
+    }
+    public boolean isCopyrightStatementDisplayed() {
+        return copyrightStatement.isDisplayed();
+    }
+    public String getCopyrightStatementText() {
+        return copyrightStatement.getText();
+    }
+    public void clickTwitterLinkIcon() {
+        twitterLink.click();
+    }
+    public boolean isTwitterLinkIconDisplayed() {
+        return twitterLink.isDisplayed();
+    }
+    public void clickFacebookLinkIcon() {
+        facebookLink.click();
+    }
+    public boolean isFacebookLinkIconDisplayed() {
+        return facebookLink.isDisplayed();
+    }
+    public void clickLinkedInLinkIcon() {
+        linkedInLink.click();
+    }
+    public boolean isLinkedInLinkIconDisplayed() {
+        return linkedInLink.isDisplayed();
+    }
     public boolean isSidebarVisible() {
         return sideBar.isDisplayed();
     }
-
-    public boolean isCheckoutButtonDisplayed() { return checkoutBtn.isDisplayed(); }
-    public void clickCheckoutButton() { checkoutBtn.click(); }
-    public boolean isBackpackAddToCartButtonDisplayed() { return backPackCartBtn.isDisplayed(); }
-    public void clickBackpackAddToCartBtn() { backPackCartBtn.click(); }
-    public boolean isFleeceJacketAddToCartButtonDisplayed() { return fleeceJacketCartBtn.isDisplayed(); }
-    public void clickFleeceJacketAddToCartBtn() { fleeceJacketCartBtn.click(); }
     public boolean isBikeLightAddToCartBtnDisplayed() {
         return bikeLightCartBtn.isDisplayed();
     }
-
     public void clickAddBikeLightToCart() {
         bikeLightCartBtn.click();
     }
-
     public boolean isShoppingCartButtonDisplayed() {
         return shoppingCartBtn.isDisplayed();
     }
-
     public void clickShoppingCartButton() {
         shoppingCartBtn.click();
     }
-
     public void clickSidebarElement() { sideBar.click(); }
 
     public void selectLogOutOptionFromSideBar() {
@@ -79,6 +103,16 @@ public class HomePO extends BasePage {
     public void selectAboutOptionFromSideBar() {
         wait.until(ExpectedConditions.visibilityOf(about));
         about.click();
+    }
+
+    public void switchTab() {
+        // Get all window handles
+        for (String handle : driver.getWindowHandles()) {
+            if (!handle.equals(driver.getWindowHandle())) {
+                driver.switchTo().window(handle);
+                return; // Switched to the new tab, exit the loop
+            }
+        }
     }
 
     public boolean isProductSortingVisible() {

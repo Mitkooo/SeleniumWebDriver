@@ -5,6 +5,8 @@ import PageObjects.LoginPO;
 import Tests.Base.BaseTests;
 import jdk.jfr.Description;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Test;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
@@ -17,7 +19,7 @@ import static Constants.LoginConstants.*;
 public class HomePageTests extends BaseTests {
     private HomePO homePO;
 
-    @BeforeClass
+    @BeforeMethod
     public void setUp() {
         initializeDriver(LOGIN_PAGE_URL);
         homePO = new HomePO(driver);
@@ -26,7 +28,7 @@ public class HomePageTests extends BaseTests {
         loginPO.inputUsernameFieldText(STANDARD_USER);
         loginPO.inputPasswordFieldText(PASSWORD);
         loginPO.clickLoginButton();
-        Assert.assertEquals("User is not logged in.", HOME_PAGE_URL, driver.getCurrentUrl());
+        Assert.assertEquals(driver.getCurrentUrl(), HOME_PAGE_URL,"User is not logged in.");
     }
 
     @Test(priority = 1)
@@ -35,7 +37,7 @@ public class HomePageTests extends BaseTests {
         Assert.assertTrue(homePO.isSidebarVisible(), "Side bar is not displayed");
         homePO.clickSidebarElement();
         homePO.selectLogOutOptionFromSideBar();
-        Assert.assertEquals("User is not logged out.", LOGIN_PAGE_URL, driver.getCurrentUrl());
+        Assert.assertEquals(driver.getCurrentUrl(), LOGIN_PAGE_URL, "User is not logged out.");
     }
 
     @Test(priority = 3)
@@ -44,7 +46,7 @@ public class HomePageTests extends BaseTests {
         Assert.assertTrue(homePO.isSidebarVisible(), "Side bar is not displayed");
         homePO.clickSidebarElement();
         homePO.selectAboutOptionFromSideBar();
-        Assert.assertEquals("User is not redirected to the correct URL", ABOUT_PAGE_URL, driver.getCurrentUrl());
+        Assert.assertEquals(driver.getCurrentUrl(), ABOUT_PAGE_URL, "User is not redirected to the correct URL");
     }
 
     @Test(priority = 1)
@@ -98,5 +100,39 @@ public class HomePageTests extends BaseTests {
         List<Double> afterPriceSorting= homePO.getPrices(afterSorting);
         // Assert if products before and after sorting are different, hence products have been correctly sorted
         Assert.assertTrue(homePO.areProductsSortedByPriceHighToLow(afterPriceSorting), "Elements are not sorted correctly from low to high price");
+    }
+
+    @Test(priority = 3)
+    @Description("Verify Twitter social link icon is redirecting to correct URL.")
+    public void testTwitterSocialLinkIcon() {
+        Assert.assertTrue(homePO.isTwitterLinkIconDisplayed(), "Twitter link icon is not displayed.");
+        homePO.clickTwitterLinkIcon();
+        homePO.switchTab();
+        Assert.assertEquals(driver.getCurrentUrl(), TWITTER_URL, "URLs for Twitter does not match.");
+    }
+
+    @Test(priority = 3)
+    @Description("Verify Facebook social link icon is redirecting to correct URL.")
+    public void testFacebookLinkIcon() {
+        Assert.assertTrue(homePO.isFacebookLinkIconDisplayed(), "Facebook link icon is not displayed");
+        homePO.clickFacebookLinkIcon();
+        homePO.switchTab();
+        Assert.assertEquals(driver.getCurrentUrl(), FACEBOOK_URL, "URLs for Facebook does not match.");
+    }
+
+    @Test(priority = 3)
+    @Description("Verify LinkedIn link icon is displayed.")
+    public void testLinkedInLinkIcon() {
+        Assert.assertTrue(homePO.isLinkedInLinkIconDisplayed(), "LinkedIn link icon is not displayed");
+        homePO.clickLinkedInLinkIcon();
+        homePO.switchTab();
+        Assert.assertEquals(driver.getCurrentUrl(), LINKEDIN_URL, "URLs for LinkedIn does not match.");
+    }
+
+    @Test(priority = 2)
+    @Description("Verify copyright statement is displayed correctly.")
+    public void testCopyrightStatement() {
+        Assert.assertTrue(homePO.isCopyrightStatementDisplayed(), "Copyright statement isn't displayed.");
+        Assert.assertEquals(homePO.getCopyrightStatementText(), COPYRIGHT_STATEMENT_MESSAGE);
     }
 }

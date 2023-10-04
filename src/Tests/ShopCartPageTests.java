@@ -6,7 +6,7 @@ import PageObjects.ShopCartPO;
 import Tests.Base.BaseTests;
 import jdk.jfr.Description;
 import org.testng.Assert;
-import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import static Constants.HomeConstants.*;
@@ -16,7 +16,7 @@ public class ShopCartPageTests extends BaseTests {
     private HomePO homePO;
     private ShopCartPO cartPO;
 
-    @BeforeClass
+    @BeforeMethod
     public void setUp() {
         initializeDriver(LOGIN_PAGE_URL);
         homePO = new HomePO(driver);
@@ -26,7 +26,7 @@ public class ShopCartPageTests extends BaseTests {
         loginPO.inputUsernameFieldText(STANDARD_USER);
         loginPO.inputPasswordFieldText(PASSWORD);
         loginPO.clickLoginButton();
-        Assert.assertEquals("User is not logged in.", HOME_PAGE_URL, driver.getCurrentUrl());
+        Assert.assertEquals(driver.getCurrentUrl(), HOME_PAGE_URL, "User is not logged in.");
     }
 
     @Test(priority = 1)
@@ -45,7 +45,7 @@ public class ShopCartPageTests extends BaseTests {
         Assert.assertTrue(cartPO.isProductNameCorrect(BIKE_LIGHT), "Names doesn't match");
     }
 
-    @Test(priority = 2)
+    @Test(priority = 1)
     @Description("Test adding a product to cart and removing it")
     public void testRemovingProductFromCart() {
         // Assert "Add to cart button" is displayed
@@ -60,7 +60,5 @@ public class ShopCartPageTests extends BaseTests {
         cartPO.clickRemoveButton();
         // assert product is removed
         Assert.assertTrue(cartPO.isProductRemoved(), "Item is still in cart");
-        // Click on Continue Shopping button
-        cartPO.ClickContinueShoppingButton();
     }
 }

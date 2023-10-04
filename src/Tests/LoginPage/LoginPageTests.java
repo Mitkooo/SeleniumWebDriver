@@ -4,6 +4,7 @@ import PageObjects.LoginPO;
 import Tests.Base.BaseTests;
 import jdk.jfr.Description;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import org.testng.Assert;
 
@@ -13,7 +14,7 @@ public class LoginPageTests extends BaseTests {
 
     private LoginPO loginPO;
 
-    @BeforeClass
+    @BeforeMethod
     public void setUp() {
         initializeDriver(LOGIN_PAGE_URL);
         loginPO = new LoginPO(driver);
@@ -29,7 +30,7 @@ public class LoginPageTests extends BaseTests {
         loginPO.inputPasswordFieldText(PASSWORD);
         loginPO.clickLoginButton();
         loginPO.waitUntilLogInButtonIsInvisible();
-        Assert.assertEquals("User is not logged in.", HOME_PAGE_URL, driver.getCurrentUrl());
+        Assert.assertEquals(driver.getCurrentUrl(), HOME_PAGE_URL, "User is not logged in." );
     }
 
     @Test(priority = 2)
@@ -39,7 +40,7 @@ public class LoginPageTests extends BaseTests {
         loginPO.inputPasswordFieldText(PASSWORD);
         loginPO.clickLoginButton();
         loginPO.waitUntilLogInButtonIsInvisible();
-        Assert.assertEquals("User is not logged in.", HOME_PAGE_URL, driver.getCurrentUrl());
+        Assert.assertEquals(driver.getCurrentUrl(), HOME_PAGE_URL, "User is not logged in." );
         Assert.assertTrue(loginPO.isProblemUserImageDisplayed(), "Image is problem user image");
     }
 
@@ -49,9 +50,9 @@ public class LoginPageTests extends BaseTests {
         loginPO.inputUsernameFieldText(LOCKED_OUT_USER);
         loginPO.inputPasswordFieldText(PASSWORD);
         loginPO.clickLoginButton();
-        Assert.assertEquals("User is not logged in, locked out.", LOGIN_PAGE_URL, driver.getCurrentUrl());
+        Assert.assertEquals(driver.getCurrentUrl(), LOGIN_PAGE_URL,"User is not logged in, locked out." );
         Assert.assertTrue(loginPO.isLoginErrorMessageDisplayed(), "No error message is displayed.");
-        Assert.assertEquals("Locked out user error message is not as expected", LOCKED_OUT_USER_ERROR_MESSAGE, loginPO.getLoginErrorMessage());
+        Assert.assertEquals(loginPO.getLoginErrorMessage(), LOCKED_OUT_USER_ERROR_MESSAGE,"Locked out user error message is not as expected" );
     }
 
     @Test(priority = 2)
@@ -61,7 +62,7 @@ public class LoginPageTests extends BaseTests {
         loginPO.inputPasswordFieldText(PASSWORD);
         loginPO.clickLoginButton();
         loginPO.waitUntilLogInButtonIsInvisible();
-        Assert.assertEquals("User is not logged in.", HOME_PAGE_URL, driver.getCurrentUrl());
+        Assert.assertEquals(driver.getCurrentUrl(), HOME_PAGE_URL, "User is not logged in." );
     }
 
     @Test(priority = 2)
@@ -69,39 +70,39 @@ public class LoginPageTests extends BaseTests {
     public void testLoginWithEmptyUsernameField() {
         loginPO.inputPasswordFieldText(PASSWORD);
         loginPO.clickLoginButton();
-        Assert.assertEquals("User is not logged in, locked out.", LOGIN_PAGE_URL, driver.getCurrentUrl());
+        Assert.assertEquals(driver.getCurrentUrl(), LOGIN_PAGE_URL,"User is not logged in, locked out." );
         Assert.assertTrue(loginPO.isLoginErrorMessageDisplayed(), "No error message is displayed.");
-        Assert.assertEquals("Empty username error message is not as expected", EMPTY_USERNAME_ERROR_MESSAGE, loginPO.getLoginErrorMessage());
+        Assert.assertEquals(loginPO.getLoginErrorMessage(), EMPTY_USERNAME_ERROR_MESSAGE,"Empty username error message is not as expected");
     }
 
-    @Test(priority = 2)
+    @Test(priority = 1)
     @Description("Test login functionality with no password")
     public void testLoginWithEmptyPasswordField() {
         loginPO.inputUsernameFieldText(STANDARD_USER);
         loginPO.clickLoginButton();
-        Assert.assertEquals("User is not logged in, locked out.", LOGIN_PAGE_URL, driver.getCurrentUrl());
+        Assert.assertEquals(driver.getCurrentUrl(), LOGIN_PAGE_URL,"User is not logged in, locked out." );
         Assert.assertTrue(loginPO.isLoginErrorMessageDisplayed(), "No error message is displayed.");
-        Assert.assertEquals("Empty password error message is not as expected", EMPTY_PASSWORD_ERROR_MESSAGE, loginPO.getLoginErrorMessage());
+        Assert.assertEquals(loginPO.getLoginErrorMessage(), EMPTY_PASSWORD_ERROR_MESSAGE,"Empty password error message is not as expected");
     }
 
     @Test(priority = 3)
     @Description("Test login functionality with no username or password")
     public void testLoginWithAllFieldsEmpty() {
         loginPO.clickLoginButton();
-        Assert.assertEquals("User is not logged in, locked out.", LOGIN_PAGE_URL, driver.getCurrentUrl());
+        Assert.assertEquals(driver.getCurrentUrl(), LOGIN_PAGE_URL,"User is not logged in, locked out." );
         Assert.assertTrue(loginPO.isLoginErrorMessageDisplayed(), "No error message is displayed.");
-        Assert.assertEquals("Empty username error message is not as expected", EMPTY_USERNAME_ERROR_MESSAGE, loginPO.getLoginErrorMessage());
+        Assert.assertEquals(loginPO.getLoginErrorMessage(), EMPTY_USERNAME_ERROR_MESSAGE,"Empty username error message is not as expected");
     }
 
-    @Test(priority = 1)
+    @Test(priority = 3)
     @Description("Test login functionality with invalid credentials that aren't the provided")
     public void testLoginWithCredentialsDifferentThanProvided() {
         loginPO.inputUsernameFieldText(INVALID_USER);
         loginPO.inputPasswordFieldText(INVALID_PASSWORD);
         loginPO.clickLoginButton();
-        Assert.assertEquals("User is not logged in, locked out.", LOGIN_PAGE_URL, driver.getCurrentUrl());
+        Assert.assertEquals(driver.getCurrentUrl(), LOGIN_PAGE_URL,"User is not logged in, locked out." );
         Assert.assertTrue(loginPO.isLoginErrorMessageDisplayed(), "No error message is displayed.");
-        Assert.assertEquals("Invalid user error message is not as expected", INVALID_USER_ERROR_MESSAGE, loginPO.getLoginErrorMessage());
+        Assert.assertEquals(loginPO.getLoginErrorMessage(), INVALID_USER_ERROR_MESSAGE,"Invalid user error message is not as expected");
     }
 
     @Test(priority = 2)
@@ -110,9 +111,9 @@ public class LoginPageTests extends BaseTests {
         loginPO.inputUsernameFieldText(STANDARD_USER);
         loginPO.inputPasswordFieldText(INVALID_PASSWORD);
         loginPO.clickLoginButton();
-        Assert.assertEquals("User is not logged in, locked out.", LOGIN_PAGE_URL, driver.getCurrentUrl());
+        Assert.assertEquals(driver.getCurrentUrl(), LOGIN_PAGE_URL,"User is not logged in, locked out." );
         Assert.assertTrue(loginPO.isLoginErrorMessageDisplayed(), "No error message is displayed.");
-        Assert.assertEquals("Invalid user error message is not as expected", INVALID_USER_ERROR_MESSAGE, loginPO.getLoginErrorMessage());
+        Assert.assertEquals(loginPO.getLoginErrorMessage(), INVALID_USER_ERROR_MESSAGE,"Invalid user error message is not as expected");
     }
 
     @Test(priority = 2)
@@ -121,9 +122,9 @@ public class LoginPageTests extends BaseTests {
         loginPO.inputUsernameFieldText(INVALID_USER);
         loginPO.inputPasswordFieldText(PASSWORD);
         loginPO.clickLoginButton();
-        Assert.assertEquals("User is not logged in, locked out.", LOGIN_PAGE_URL, driver.getCurrentUrl());
+        Assert.assertEquals(driver.getCurrentUrl(), LOGIN_PAGE_URL,"User is not logged in, locked out." );
         Assert.assertTrue(loginPO.isLoginErrorMessageDisplayed(), "No error message is displayed.");
-        Assert.assertEquals("Invalid user error message is not as expected", INVALID_USER_ERROR_MESSAGE, loginPO.getLoginErrorMessage());
+        Assert.assertEquals(loginPO.getLoginErrorMessage(), INVALID_USER_ERROR_MESSAGE,"Invalid user error message is not as expected");
     }
 
     @Test(priority = 3)
@@ -132,20 +133,20 @@ public class LoginPageTests extends BaseTests {
         loginPO.inputUsernameFieldText(STANDARD_USER);
         loginPO.inputPasswordFieldText(STANDARD_USER);
         loginPO.clickLoginButton();
-        Assert.assertEquals("User is not logged in, locked out.", LOGIN_PAGE_URL, driver.getCurrentUrl());
+        Assert.assertEquals(driver.getCurrentUrl(), LOGIN_PAGE_URL,"User is not logged in, locked out." );
         Assert.assertTrue(loginPO.isLoginErrorMessageDisplayed(), "No error message is displayed.");
-        Assert.assertEquals("Invalid user error message is not as expected", INVALID_USER_ERROR_MESSAGE, loginPO.getLoginErrorMessage());
+        Assert.assertEquals(loginPO.getLoginErrorMessage(), INVALID_USER_ERROR_MESSAGE,"Invalid user error message is not as expected");
     }
 
     @Test(priority = 3)
-    @Description("Test login functionality with username in both fields")
+    @Description("Test login functionality with password in both fields")
     public void testLoginWithPasswordInAllFields() {
         loginPO.inputUsernameFieldText(PASSWORD);
         loginPO.inputPasswordFieldText(PASSWORD);
         loginPO.clickLoginButton();
-        Assert.assertEquals("User is not logged in, locked out.", LOGIN_PAGE_URL, driver.getCurrentUrl());
+        Assert.assertEquals(driver.getCurrentUrl(), LOGIN_PAGE_URL,"User is not logged in, locked out." );
         Assert.assertTrue(loginPO.isLoginErrorMessageDisplayed(), "No error message is displayed.");
-        Assert.assertEquals("Invalid user error message is not as expected", INVALID_USER_ERROR_MESSAGE, loginPO.getLoginErrorMessage());
+        Assert.assertEquals(loginPO.getLoginErrorMessage(), INVALID_USER_ERROR_MESSAGE,"Invalid user error message is not as expected");
     }
 
     @Test(priority = 3)
@@ -154,8 +155,8 @@ public class LoginPageTests extends BaseTests {
         loginPO.inputUsernameFieldText(PASSWORD);
         loginPO.inputPasswordFieldText(STANDARD_USER);
         loginPO.clickLoginButton();
-        Assert.assertEquals("User is not logged in, locked out.", LOGIN_PAGE_URL, driver.getCurrentUrl());
+        Assert.assertEquals(driver.getCurrentUrl(), LOGIN_PAGE_URL,"User is not logged in, locked out." );
         Assert.assertTrue(loginPO.isLoginErrorMessageDisplayed(), "No error message is displayed.");
-        Assert.assertEquals("Invalid user error message is not as expected", INVALID_USER_ERROR_MESSAGE, loginPO.getLoginErrorMessage());
+        Assert.assertEquals(loginPO.getLoginErrorMessage(), INVALID_USER_ERROR_MESSAGE,"Invalid user error message is not as expected");
     }
 }
